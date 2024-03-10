@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Main Activity 1</h1>
+    <p>
+      package com.example.lab4q1;<br />
+      <br />
+      import android.content.DialogInterface;<br />
+      import android.content.Intent;<br />
+      import android.os.Bundle;<br />
+      import android.view.View;<br />
+      import android.widget.Button;<br />
+      import android.widget.RadioButton;<br />
+      import android.widget.RadioGroup;<br />
+      <br />
+      import androidx.activity.EdgeToEdge;<br />
+      import androidx.appcompat.app.AlertDialog;<br />
+      import androidx.appcompat.app.AppCompatActivity;<br />
+      import androidx.core.graphics.Insets;<br />
+      import androidx.core.view.ViewCompat;<br />
+      import androidx.core.view.WindowInsetsCompat;<br />
+      <br />
+      public class MainActivity extends AppCompatActivity<br />
+      {<br />
+      RadioGroup rg1, rg2;<br />
+      Button bt;<br />
+      @Override<br />
+      protected void onCreate(Bundle savedInstanceState)<br />
+      {<br />
+      super.onCreate(savedInstanceState);<br />
+      setContentView(R.layout.activity_main);<br />
+      <br />
+      rg1 = (RadioGroup) findViewById(R.id.rg1);<br />
+      rg2 = (RadioGroup) findViewById(R.id.rg2);<br />
+      bt = (Button) findViewById(R.id.button);<br />
+      <br />
+      bt.setOnClickListener(new View.OnClickListener() {<br />
+      @Override<br />
+      public void onClick(View v) {<br />
+      <br />
+      AlertDialog.Builder alertDialogBuilder = new
+      AlertDialog.Builder(MainActivity.this);<br />
+      alertDialogBuilder.setTitle("Alert");<br />
+      alertDialogBuilder.setMessage("Click Yes to
+      Submit").setCancelable(false).setPositiveButton("Yes", new
+      DialogInterface.OnClickListener() {<br />
+      @Override<br />
+      public void onClick(DialogInterface dialog, int which)<br />
+      {<br />
+      <br />
+      int ans1 = rg1.getCheckedRadioButtonId();<br />
+      int ans2 = rg2.getCheckedRadioButtonId();<br />
+      <br />
+      String selectedOptionQ1 ="";<br />
+      String selectedOptionQ2 ="";<br />
+      <br />
+      if(ans1 != -1)<br />
+      {<br />
+      View selectedRadioButtonViewQ1 = rg1.findViewById(ans1);<br />
+      if(selectedRadioButtonViewQ1 != null && selectedRadioButtonViewQ1
+      instanceof RadioButton)<br />
+      {<br />
+      selectedOptionQ1 =
+      ((RadioButton)selectedRadioButtonViewQ1).getText().toString();<br />
+      }<br />
+      }<br />
+      <br />
+      if(ans2 != -1)<br />
+      {<br />
+      View selectedRadioButtonViewQ2 = rg2.findViewById(ans2);<br />
+      if(selectedRadioButtonViewQ2 != null && selectedRadioButtonViewQ2
+      instanceof RadioButton)<br />
+      {<br />
+      selectedOptionQ2 =
+      ((RadioButton)selectedRadioButtonViewQ2).getText().toString();<br />
+      }<br />
+      }<br />
+      <br />
+      Intent intent = new Intent(MainActivity.this, MainActivity2.class);<br />
+      intent.putExtra("selectedOptionQ1", selectedOptionQ1);<br />
+      intent.putExtra("selectedOptionQ2", selectedOptionQ2);<br />
+      startActivity(intent);<br />
+      }<br />
+      }).setNegativeButton("No", new DialogInterface.OnClickListener() {<br />
+      @Override<br />
+      public void onClick(DialogInterface dialog, int which) {<br />
+      dialog.cancel();<br />
+      }<br />
+      });<br />
+      <br />
+      AlertDialog alertDialog = alertDialogBuilder.create();<br />
+      alertDialog.show();<br />
+      }<br />
+      });<br />
+      }<br />
+      }<br />
+    </p>
+
+    <h1>Main Activity 2</h1>
+    <p>
+      package com.example.lab4q1;<br />
+      <br /><br />
+      import android.os.Bundle;<br />
+      import android.widget.TextView;<br />
+      <br />
+      import androidx.appcompat.app.AppCompatActivity;<br />
+      <br />
+      public class MainActivity2 extends AppCompatActivity {<br />
+      TextView tv;<br />
+      @Override<br />
+      protected void onCreate(Bundle savedInstanceState) {<br />
+      super.onCreate(savedInstanceState);<br />
+      setContentView(R.layout.activity_main2);<br />
+      <br />
+      tv = (TextView)findViewById(R.id.textViewRes);<br />
+      <br />
+      String selectedOptionQ1 =
+      getIntent().getStringExtra("selectedOptionQ1");<br />
+      String selectedOptionQ2 =
+      getIntent().getStringExtra("selectedOptionQ2");<br />
+      <br />
+      int s=0;<br />
+      if("Option 1".equals(selectedOptionQ1))<br />
+      {<br />
+      s = s+1;<br />
+      }<br />
+      if("Option 2".equals(selectedOptionQ2))<br />
+      {<br />
+      s = s+1;<br />
+      }<br />
+      <br />
+      tv.setText(String.valueOf(s));<br />
+      // tv.setText(selectedOptionQ2);<br />
+      }<br />
+      }<br />
+    </p>
+  </body>
+</html>

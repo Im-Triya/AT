@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    package com.example.lab2q3;<br />
+    <br />
+    import android.os.Bundle;<br />
+    import android.view.View;<br />
+    import android.widget.Button;<br />
+    <br />
+    import androidx.activity.EdgeToEdge;<br />
+    import androidx.appcompat.app.AppCompatActivity;<br />
+    import androidx.core.graphics.Insets;<br />
+    import androidx.core.view.ViewCompat;<br />
+    import androidx.core.view.WindowInsetsCompat;<br />
+    <br />
+    public class MainActivity extends AppCompatActivity {<br />
+    <br />
+    Button red, blue, yellow, green;<br />
+    @Override<br />
+    protected void onCreate(Bundle savedInstanceState) {<br />
+    super.onCreate(savedInstanceState);<br />
+    setContentView(R.layout.activity_main);<br />
+    <br />
+    red = (Button) findViewById(R.id.button);<br />
+    blue = (Button) findViewById(R.id.button2);<br />
+    yellow = (Button) findViewById(R.id.button3);<br />
+    green = (Button) findViewById(R.id.button4);<br />
+    <br />
+    red.setOnClickListener(new View.OnClickListener() {<br />
+    @Override<br />
+    public void onClick(View v) {<br />
+    getWindow().getDecorView().setBackgroundColor(getColor(android.R.color.holo_red_dark));<br />
+    }<br />
+    });<br />
+    <br />
+    blue.setOnClickListener(new View.OnClickListener() {<br />
+    @Override<br />
+    public void onClick(View v) {<br />
+    getWindow().getDecorView().setBackgroundColor(getColor(android.R.color.holo_blue_dark));<br />
+    }<br />
+    });<br />
+    <br />
+    yellow.setOnClickListener(new View.OnClickListener() {<br />
+    @Override<br />
+    public void onClick(View v) {<br />
+    getWindow().getDecorView().setBackgroundColor(getColor(android.R.color.holo_orange_light));<br />
+    }<br />
+    });<br />
+    <br />
+    green.setOnClickListener(new View.OnClickListener() {<br />
+    @Override<br />
+    public void onClick(View v) {<br />
+    getWindow().getDecorView().setBackgroundColor(getColor(android.R.color.holo_green_dark));<br />
+    }<br />
+    });<br />
+    }<br />
+    }<br />
+  </body>
+</html>

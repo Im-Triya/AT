@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <p>
+      package com.example.lab1q1;
+      <br />
+      import android.os.Bundle;
+      <br />
+      import androidx.activity.EdgeToEdge;
+      <br />
+      import androidx.appcompat.app.AppCompatActivity;<br />
+      import androidx.core.graphics.Insets;<br />
+      import androidx.core.view.ViewCompat;<br />
+      import androidx.core.view.WindowInsetsCompat;<br />
+      <br />
+      import android.view.View;<br />
+      import android.widget.*;<br />
+      import android.widget.Toast;<br />
+      <br />
+      public class MainActivity extends AppCompatActivity<br />
+      {<br />
+      EditText et1, et2, et3;<br />
+      Button bt;<br />
+      @Override<br />
+      protected void onCreate(Bundle savedInstanceState) {<br />
+      super.onCreate(savedInstanceState);<br />
+      setContentView(R.layout.activity_main);<br />
+
+      et1 = (EditText) findViewById(R.id.editTextText);<br />
+      et2 = (EditText) findViewById(R.id.editTextText2);<br />
+      et3 = (EditText) findViewById(R.id.editTextText3);<br />
+      bt = (Button) findViewById(R.id.button);<br />
+      <br />
+      bt.setOnClickListener(new View.OnClickListener() {<br />
+      @Override<br />
+      public void onClick(View v) {<br />
+      String mail = String.valueOf(et2.getText());<br />
+      String password = String.valueOf(et3.getText());<br />
+      <br />
+      if(mail.equals("abc@gmail.com") && password.equals("abc"))<br />
+      {<br />
+      Toast.makeText(getApplicationContext(), "Login Successful",
+      Toast.LENGTH_LONG).show();<br />
+      }<br />
+      else<br />
+      {<br />
+      Toast.makeText(getApplicationContext(), "Login NOT successful",
+      Toast.LENGTH_LONG).show();<br />
+      }<br />
+      }<br />
+      });<br />
+      }<br />
+      }<br />
+    </p>
+    <br />
+  </body>
+  <br />
+</html>
+<br />

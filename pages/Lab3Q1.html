@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Main Activity</h1>
+    <p>
+      package com.example.lab3q1;<br />
+      <br />
+      import android.os.Bundle;<br />
+      import android.widget.GridView;<br />
+      <br />
+      import androidx.activity.EdgeToEdge;<br />
+      import androidx.appcompat.app.AppCompatActivity;<br />
+      import androidx.core.graphics.Insets;<br />
+      import androidx.core.view.ViewCompat;<br />
+      import androidx.core.view.WindowInsetsCompat;<br />
+      <br />
+      public class MainActivity extends AppCompatActivity<br />
+      {<br />
+      GridView gv;<br />
+      int[] images = {R.drawable.img1, R.drawable.img2, R.drawable.img1,
+      R.drawable.img2, R.drawable.img1, R.drawable.img2};<br />
+      @Override<br />
+      protected void onCreate(Bundle savedInstanceState) {<br />
+      super.onCreate(savedInstanceState);<br />
+      setContentView(R.layout.activity_main);<br />
+      <br />
+      gv = (GridView) findViewById(R.id.gridView);<br />
+      gv.setAdapter(new ImageAdapter(this, images));<br />
+      }<br />
+      }<br />
+    </p>
+
+    <h1>Image Activity</h1>
+    <p>
+      package com.example.lab3q1;<br />
+      <br />
+      import android.widget.BaseAdapter;<br />
+      import android.widget.*;<br />
+      import android.view.*;<br />
+      import android.content.Context;<br />
+      <br />
+      public class ImageAdapter extends BaseAdapter<br />
+      {<br />
+      Context context;<br />
+      int[] images = {R.drawable.img1, R.drawable.img2, R.drawable.img1,
+      R.drawable.img2, R.drawable.img1, R.drawable.img2};<br />
+      <br />
+      public ImageAdapter(Context context, int[] images)<br />
+      {<br />
+      this.context = context;<br />
+      this.images = images;<br />
+      }<br />
+      <br />
+      <br />
+      @Override<br />
+      public int getCount() {<br />
+      return images.length;<br />
+      }<br />
+      <br />
+      @Override<br />
+      public Object getItem(int position) {<br />
+      return null;<br />
+      }<br />
+      <br />
+      @Override<br />
+      public long getItemId(int position) {<br />
+      return 0;<br />
+      }<br />
+      <br />
+      @Override<br />
+      public View getView(int position, View convertView, ViewGroup parent)<br />
+      {<br />
+      ImageView imageView;<br />
+      <br />
+      if(convertView == null)<br />
+      {<br />
+      imageView = new ImageView(context);<br />
+      imageView.setLayoutParams(new ViewGroup.LayoutParams(350, 350));<br />
+      imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);<br />
+      }<br />
+      else<br />
+      {<br />
+      imageView = (ImageView) convertView;<br />
+      }<br />
+      <br />
+      imageView.setImageResource(images[position]);<br />
+      return imageView;<br />
+      }<br />
+      }<br />
+      <br />
+    </p>
+  </body>
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    package com.example.myapplication;<br />
+    <br />
+    import androidx.appcompat.app.AppCompatActivity;<br />
+    <br />
+    import android.media.MediaPlayer;<br />
+    import android.os.Bundle;<br />
+    import android.os.Handler;<br />
+    import android.view.View;<br />
+    import android.widget.Button;<br />
+    import android.widget.SeekBar;<br />
+    import android.widget.TextView;<br />
+    import android.widget.Toast;<br />
+    <br />
+    import java.sql.Time;<br />
+    import java.util.concurrent.TimeUnit;<br />
+    <br />
+    import java.util.concurrent.TimeUnit;<br />
+    <br />
+    public class MainActivity extends AppCompatActivity {<br />
+    <br />
+    private Button start_bt, stop_bt, forward_bt, backward_bt;<br />
+    private TextView tx1, tx2, tx3;<br />
+    private SeekBar seek;<br />
+    private MediaPlayer mediaPlayer;<br />
+    private double startTime = 0;<br />
+    private double finalTime = 0;<br />
+    private int forwardTime = 5000;<br />
+    private int backwardTime = 5000;<br />
+    public static int OneTimeOnly = 0;<br />
+    private Handler myHandler = new Handler();<br />
+    @Override<br />
+    protected void onCreate(Bundle savedInstanceState) {<br />
+    super.onCreate(savedInstanceState);<br />
+    setContentView(R.layout.activity_main);<br />
+    <br />
+    start_bt = (Button) findViewById(R.id.button);<br />
+    stop_bt = (Button) findViewById(R.id.button2);<br />
+    forward_bt = (Button) findViewById(R.id.button3);<br />
+    backward_bt = (Button) findViewById(R.id.button4);<br />
+    seek = (SeekBar) findViewById(R.id.seekBar);<br />
+    tx1 = (TextView) findViewById(R.id.tx1);<br />
+    tx2 = (TextView) findViewById(R.id.tx2);<br />
+    tx3 = (TextView) findViewById(R.id.tx3);<br />
+    <br />
+    tx3.setText("Song.mp3");<br />
+    <br />
+    mediaPlayer = MediaPlayer.create(this, R.raw.song);<br />
+    <br />
+    seek.setClickable(false);<br />
+    stop_bt.setEnabled(false);<br />
+    <br />
+    start_bt.setOnClickListener(new View.OnClickListener()<br />
+    {<br />
+    @Override<br />
+    public void onClick(View v) {<br />
+    Toast.makeText(getApplicationContext(), "Playing",
+    Toast.LENGTH_SHORT).show();<br />
+    mediaPlayer.start();<br />
+    <br />
+    finalTime = mediaPlayer.getDuration();<br />
+    startTime = mediaPlayer.getCurrentPosition();<br />
+    <br />
+    if(OneTimeOnly == 0)<br />
+    {<br />
+    seek.setMax((int)finalTime);<br />
+    OneTimeOnly = 1;<br />
+    }<br />
+    <br />
+    tx2.setText( String.format("%d min, %d sec",<br />
+    TimeUnit.MILLISECONDS.toSeconds((long)finalTime),<br />
+    TimeUnit.MILLISECONDS.toMinutes((long)finalTime)-<br />
+    TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes((long)finalTime))));<br />
+    <br />
+    tx1.setText( String.format("%d min, %d sec",<br />
+    TimeUnit.MILLISECONDS.toSeconds((long)startTime),<br />
+    TimeUnit.MILLISECONDS.toMinutes((long)startTime)-<br />
+    TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes((long)startTime))));<br />
+    <br />
+    seek.setProgress((int)startTime);<br />
+    myHandler.postDelayed(UpdateSongTime, 100);<br />
+    start_bt.setEnabled(false);<br />
+    stop_bt.setEnabled(true);<br />
+    }<br />
+    });<br />
+    <br />
+    stop_bt.setOnClickListener(new View.OnClickListener()<br />
+    {<br />
+    @Override<br />
+    public void onClick(View v)<br />
+    {<br />
+    Toast.makeText(getApplicationContext(), "Pausing",
+    Toast.LENGTH_SHORT).show();<br />
+    mediaPlayer.pause();<br />
+    <br />
+    start_bt.setEnabled(true);<br />
+    stop_bt.setEnabled(false);<br />
+    }<br />
+    });<br />
+    <br />
+    forward_bt.setOnClickListener(new View.OnClickListener()<br />
+    {<br />
+    @Override<br />
+    public void onClick(View v)<br />
+    {<br />
+    int temp = (int)startTime;<br />
+    <br />
+    if((temp + forwardTime)<=finalTime)<br />
+    {<br />
+    startTime = startTime+ forwardTime;<br />
+    mediaPlayer.seekTo((int)startTime);<br />
+    Toast.makeText(getApplicationContext(), "Forwarded 5 seconds",
+    Toast.LENGTH_SHORT).show();<br />
+    }<br />
+    else<br />
+    {<br />
+    Toast.makeText(getApplicationContext(), "Can't Forward",
+    Toast.LENGTH_SHORT).show();<br />
+    }<br />
+    }<br />
+    });<br />
+    <br />
+    backward_bt.setOnClickListener(new View.OnClickListener()<br />
+    {<br />
+    @Override<br />
+    public void onClick(View v)<br />
+    {<br />
+    int temp = (int)startTime;<br />
+    <br />
+    if((temp - backwardTime)>0)<br />
+    {<br />
+    startTime = startTime - backwardTime;<br />
+    mediaPlayer.seekTo((int)startTime);<br />
+    Toast.makeText(getApplicationContext(), "Backward 5 seconds",
+    Toast.LENGTH_SHORT).show();<br />
+    }<br />
+    else<br />
+    {<br />
+    Toast.makeText(getApplicationContext(), "Can't Backward",
+    Toast.LENGTH_SHORT).show();<br />
+    }<br />
+    }<br />
+    });<br />
+    <br />
+    }<br />
+    <br />
+    private Runnable UpdateSongTime = new Runnable() {<br />
+    @Override<br />
+    public void run() {<br />
+    startTime = mediaPlayer.getCurrentPosition();<br />
+    seek.setProgress((int) startTime);<br />
+    myHandler.postDelayed(this, 100);<br />
+    }<br />
+    };<br />
+    }<br />
+  </body>
+</html>

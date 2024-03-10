@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    package com.example.lab2q1;<br>
+<br>
+import android.os.Bundle;<br>
+import android.view.View;<br>
+import android.widget.AdapterView;<br>
+import android.widget.ArrayAdapter;<br>
+import android.widget.ListView;<br>
+import android.widget.Toast;<br>
+<br>
+import androidx.activity.EdgeToEdge;<br>
+import androidx.appcompat.app.AppCompatActivity;<br>
+import androidx.core.graphics.Insets;<br>
+import androidx.core.view.ViewCompat;<br>
+import androidx.core.view.WindowInsetsCompat;<br>
+<br>
+public class MainActivity extends AppCompatActivity<br>
+{<br>
+    ListView lv;<br>
+    @Override<br>
+    protected void onCreate(Bundle savedInstanceState)<br>
+    {<br>
+        super.onCreate(savedInstanceState);<br>
+        setContentView(R.layout.activity_main);<br>
+<br>
+        lv = (ListView) findViewById(R.id.listView);<br>
+<br>
+        String[] values = {"Item-1", "Item-2", "Item-3", "Item-4", "Item-5"};<br>
+<br>
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, values);<br>
+<br>
+        lv.setAdapter(adapter);<br>
+<br>
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {<br>
+            @Override<br>
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {<br>
+                int itemPosition = position;<br>
+                String itemValue = (String)lv.getItemAtPosition(itemPosition);<br>
+                Toast.makeText(getApplicationContext(), "Item : "+itemValue, Toast.LENGTH_LONG).show();<br>
+            }<br>
+        });<br>
+    }<br>
+}<br>
+
+
+</body>
+</html>
